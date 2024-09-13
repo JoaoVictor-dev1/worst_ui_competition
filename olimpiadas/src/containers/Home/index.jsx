@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import ReactFlagsSelect from 'react-flags-select';
 import { Title, MedalTable, MedalRow, MedalCell, CountryCell, InputSlider, Button, FormContainer, TotalCell, RankCell, FlagContainer, FlagIcon, Popup, CloseButton } from './styles';
 
-
 const countries = [
     'AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AO', 'AR', 'AS', 'AT', 'AU', 'AW', 'AX', 'AZ', 'BA', 'BB', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BL', 'BM', 'BN', 'BO', 'BQ', 'BR', 'BS', 'BT', 'BV', 'BW', 'BY', 'BZ', 'CA', 'CC', 'CD', 'CF', 'CG', 'CH', 'CI', 'CK', 'CL', 'CM', 'CN', 'CO', 'CR', 'CU', 'CV', 'CW', 'CX', 'CY', 'CZ', 'DE', 'DJ', 'DK', 'DM', 'DO', 'DZ', 'EC', 'EE', 'EG', 'EH', 'ER', 'ES', 'ET', 'FI', 'FJ', 'FM', 'FO', 'FR', 'GA', 'GB', 'GD', 'GE', 'GF', 'GG', 'GH', 'GI', 'GL', 'GM', 'GN', 'GP', 'GQ', 'GR', 'GT', 'GU', 'GW', 'GY', 'HK', 'HM', 'HN', 'HR', 'HT', 'HU', 'ID', 'IE', 'IL', 'IM', 'IN', 'IO', 'IQ', 'IR', 'IS', 'IT', 'JE', 'JM', 'JO', 'JP', 'KE', 'KG', 'KH', 'KI', 'KM', 'KN', 'KP', 'KR', 'KW', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LI', 'LK', 'LR', 'LS', 'LT', 'LU', 'LV', 'LY', 'MA', 'MC', 'MD', 'ME', 'MF', 'MG', 'MH', 'MK', 'ML', 'MM', 'MN', 'MO', 'MP', 'MQ', 'MR', 'MS', 'MT', 'MU', 'MV', 'MW', 'MX', 'MY', 'MZ', 'NA', 'NC', 'NE', 'NF', 'NG', 'NI', 'NL', 'NO', 'NP', 'NR', 'NU', 'NZ', 'OM', 'PA', 'PE', 'PF', 'PG', 'PH', 'PK', 'PL', 'PM', 'PN', 'PR', 'PT', 'PW', 'PY', 'QA', 'RE', 'RO', 'RS', 'RU', 'RW', 'SA', 'SB', 'SC', 'SD', 'SE', 'SG', 'SH', 'SI', 'SJ', 'SK', 'SL', 'SM', 'SN', 'SO', 'SR', 'SS', 'ST', 'SV', 'SX', 'SY', 'SZ', 'TC', 'TD', 'TF', 'TG', 'TH', 'TJ', 'TK', 'TL', 'TM', 'TN', 'TO', 'TR', 'TT', 'TV', 'TZ', 'UA', 'UG', 'UM', 'US', 'UY', 'UZ', 'VA', 'VC', 'VE', 'VG', 'VI', 'VN', 'VU', 'WF', 'WS', 'XK', 'YE', 'YT', 'ZA', 'ZM', 'ZW'
 ];
-
 
 function Home() {
     const [countriesData, setCountriesData] = useState([
@@ -15,7 +13,6 @@ function Home() {
         { name: 'México', gold: 4, silver: 2, bronze: 3, code: 'MX' }
     ]);
 
-
     const [selected, setSelected] = useState("");
     const [gold, setGold] = useState(0);
     const [silver, setSilver] = useState(0);
@@ -23,12 +20,10 @@ function Home() {
     const [popups, setPopups] = useState([]);
     const [editButtonPositions, setEditButtonPositions] = useState({});
 
-
     // Função para duplicar um país
     const handleDuplicateCountry = (country) => {
         setCountriesData([...countriesData, { ...country }]);
     };
-
 
     // Função para mover o botão "Editar"
     const moveEditButton = (index) => {
@@ -37,18 +32,18 @@ function Home() {
         setEditButtonPositions({ ...editButtonPositions, [index]: { top: newTop, left: newLeft } });
     };
 
-
+    // Função para gerar Popups aleatórios 
     const generateRandomPopups = () => {
         const newPopups = [];
         for (let i = 0; i < 10; i++) {
-            const top = `${Math.random() * 80}vh`; // Ajuste o intervalo conforme necessário
-            const left = `${Math.random() * 80}vw`; // Ajuste o intervalo conforme necessário
+            const top = `${Math.random() * 80}vh`; 
+            const left = `${Math.random() * 80}vw`; 
             newPopups.push({ id: Date.now() + i, message: `País adicionado com sucesso!`, top, left });
         }
         setPopups(newPopups);
     };
 
-
+    // Função para adicionar um país à lista de dados dos países
     const handleAddCountry = () => {
         const countryName = new Intl.DisplayNames(['en'], { type: 'region' }).of(selected);
         if (countryName) {
@@ -61,17 +56,16 @@ function Home() {
         }
     };
 
-
+    // Função para fechar um popup com base no seu ID
     const handleClosePopup = (id) => {
         setPopups(popups.filter(popup => popup.id !== id));
     };
 
-
+    // Função para calcular o total de medalhas para um país
     const calculateTotal = (country) => country.gold + country.silver + country.bronze;
 
-
+    // Função para ordenar a lista de países com base nas medalhas
     const sortedCountries = countriesData.sort((a, b) => a.gold - b.gold || a.silver - b.silver || a.bronze - b.bronze);
-
 
     return (
         <div>
@@ -113,7 +107,6 @@ function Home() {
                 <div>Bronze: {bronze.toFixed(2)}</div>
                 <Button onClick={handleAddCountry}>Adicionar País</Button>
             </FormContainer>
-
 
             <MedalTable>
                 <thead>
@@ -161,7 +154,6 @@ function Home() {
                 </tbody>
             </MedalTable>
 
-
             {popups.map(popup => (
                 <Popup key={popup.id} style={{ top: popup.top, left: popup.left }}>
                     {popup.message}
@@ -171,6 +163,5 @@ function Home() {
         </div>
     );
 }
-
 
 export default Home;
