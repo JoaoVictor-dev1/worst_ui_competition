@@ -3,5 +3,9 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  root: 'olimpiadas', 
   plugins: [react()],
+  build: {
+    outDir: '../build', 
+  },
 })
